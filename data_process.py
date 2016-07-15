@@ -13,11 +13,20 @@ def toInt(array):
 
 def toFloat(array):
 	array=np.mat(array)  
-	m,n=np.shape(array)  
+	m,n=np.shape(array)
 	newArray=np.zeros((m,n))  
 	for i in xrange(m):  
 		for j in xrange(n):  
-			newArray[i,j]=float(array[i,j])  
+			newArray[i,j]=float(array[i,j])
+	return newArray
+
+def toFloat255(array):
+	array=np.mat(array)  
+	m,n=np.shape(array)
+	newArray=np.zeros((m,n))  
+	for i in xrange(m):  
+		for j in xrange(n):  
+			newArray[i,j]=float(array[i,j])/255
 	return newArray 
 
 def loadTrainData(dataNumber):
@@ -37,7 +46,7 @@ def loadTrainData(dataNumber):
 		label.append(classNumStr)
 		dataMat[i][:] = train_data[i][1::]
 
-	dataMat = toFloat(dataMat)
+	dataMat = toFloat255(dataMat)
 	normalized_dataMat = preprocessing.normalize(dataMat)
 
 	return dataMat,label
@@ -56,7 +65,7 @@ def loadTestData(dataNumber):
 			test_data = np.array(test_data)
 			test_data = toFloat(test_data)
 			normalized_test_data = preprocessing.normalize(test_data)
-			return test_data
+			return toFloat255(test_data)
 	return test_data
 
 
